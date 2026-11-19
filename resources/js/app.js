@@ -27,16 +27,31 @@ document.addEventListener('livewire:init', () => {
 document.addEventListener('alpine:init', () => {
     const Alpine = window.Alpine;
 
+    // Light/dark switch. The initial class is set by an inline script in <head> to avoid a flash.
+    Alpine.store('theme', {
+        dark: document.documentElement.classList.contains('dark'),
+        toggle() {
+            this.dark = !this.dark;
+            document.documentElement.classList.toggle('dark', this.dark);
+            try { localStorage.setItem('theme', this.dark ? 'dark' : 'light'); } catch (e) { /* storage unavailable */ }
+        },
+    });
+
     // Animated number that counts up once it becomes visible.
     Alpine.data('counter', (target = 0, duration = 1600) => ({
         value: 0,
         init() {
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                this.value = target;
+                return;
+            }
             const io = new IntersectionObserver(([entry]) => {
                 if (!entry.isIntersecting) return;
                 io.disconnect();
                 const start = performance.now();
                 const tick = (now) => {
-                    const p = Math.min((now - start) / duration, 1);
+                    // The first frame's timestamp can precede `start`; clamp so the value never goes negative.
+                    const p = Math.max(0, Math.min((now - start) / duration, 1));
                     this.value = Math.round(target * (1 - Math.pow(1 - p, 3)));
                     if (p < 1) requestAnimationFrame(tick);
                 };

@@ -63,7 +63,7 @@ class PageController extends Controller
 
         return view('pages.berita-show', [
             'post' => $post,
-            'related' => Post::published()->whereKeyNot($post->id)->take(3)->get(),
+            'related' => Post::published()->whereKeyNot($post->id)->take(5)->get(),
         ]);
     }
 

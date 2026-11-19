@@ -1,7 +1,6 @@
 <div class="relative grid min-h-screen overflow-hidden lg:grid-cols-2">
-    <div class="bg-grid absolute inset-0"></div>
-    <div class="absolute -left-40 top-1/4 size-[36rem] animate-blob rounded-full bg-brand-600/30 blur-3xl"></div>
-    <div class="absolute bottom-0 right-1/3 size-[26rem] animate-blob rounded-full bg-gold-500/15 blur-3xl [animation-delay:-7s]"></div>
+    <img src="{{ asset('images/gedung-bpkpd-sm.jpg') }}" alt="" class="absolute inset-0 size-full object-cover opacity-20">
+    <div class="absolute inset-0 bg-gradient-to-r from-ink via-ink/90 to-ink/70"></div>
 
     <div class="relative hidden flex-col justify-between p-12 text-white lg:flex">
         <a href="{{ route('home') }}" class="flex items-center gap-3">
@@ -10,7 +9,7 @@
         </a>
         <div>
             <p class="text-xs font-bold uppercase tracking-[0.25em] text-gold-400">Content Management System</p>
-            <h1 class="mt-4 max-w-md text-5xl font-extrabold leading-tight">Kelola website dengan <span class="text-gradient">mudah</span>.</h1>
+            <h1 class="mt-4 max-w-md text-5xl font-extrabold leading-tight">Kelola website dengan <span class="text-gold-300">mudah</span>.</h1>
             <p class="mt-5 max-w-md text-white/60">{{ setting('nama_dinas') }} {{ setting('daerah') }}</p>
         </div>
         <p class="text-sm text-white/40">&copy; {{ date('Y') }} {{ setting('nama_singkat') }}</p>

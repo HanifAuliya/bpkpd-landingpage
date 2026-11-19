@@ -115,6 +115,8 @@ class DatabaseSeeder extends Seeder
             Employee::create(['name' => $name, 'position' => $position, 'sort_order' => $i + 1]);
         }
 
+        $this->call(BeritaHstSeeder::class);
+
         if (app()->environment('local')) {
             $this->call(DemoContentSeeder::class);
         }

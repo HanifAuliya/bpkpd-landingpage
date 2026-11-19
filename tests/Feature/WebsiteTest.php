@@ -7,8 +7,10 @@ use App\Livewire\Public\Kontak;
 use App\Models\Message;
 use App\Models\Post;
 use App\Models\User;
+use Database\Seeders\BeritaHstSeeder;
 use Database\Seeders\DatabaseSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Livewire;
 use Tests\TestCase;
 
@@ -19,6 +21,7 @@ class WebsiteTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+        Storage::fake('public');
         $this->seed(DatabaseSeeder::class);
     }
 
@@ -79,5 +82,31 @@ class WebsiteTest extends TestCase
             ->call('save')
             ->assertHasNoErrors();
         $this->assertDatabaseHas('posts', ['title' => 'Berita dari CMS', 'slug' => 'berita-dari-cms']);
+    }
+
+    public function test_seeded_news_is_listed_with_its_source(): void
+    {
+        $post = Post::published()->first();
+
+        $this->assertSame(7, Post::published()->count());
+        $this->assertSame(7, Post::whereNotNull('image')->count());
+        Storage::disk('public')->assertExists($post->image);
+        $this->get('/berita')->assertOk()->assertSee($post->title);
+        $this->get(route('berita.show', $post))->assertOk()->assertSee('Disarikan dari pemberitaan', false);
+    }
+
+    public function test_news_seeder_does_not_duplicate_posts(): void
+    {
+        $this->seed(BeritaHstSeeder::class);
+
+        $this->assertSame(7, Post::count());
+    }
+
+    public function test_home_shows_building_photo_and_theme_toggle(): void
+    {
+        $this->get('/')
+            ->assertOk()
+            ->assertSee('images/gedung-bpkpd.jpg', false)
+            ->assertSee('$store.theme.toggle()', false);
     }
 }

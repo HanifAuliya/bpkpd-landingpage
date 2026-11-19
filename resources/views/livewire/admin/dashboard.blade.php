@@ -1,7 +1,6 @@
 <div>
     <div class="relative mb-8 overflow-hidden rounded-3xl bg-gradient-to-br from-brand-600 via-brand-700 to-ink p-8 text-white shadow-xl shadow-brand-900/10">
-        <div class="bg-grid absolute inset-0"></div>
-        <div class="absolute -right-10 -top-10 size-60 animate-blob rounded-full bg-gold-400/30 blur-3xl"></div>
+        <div class="bg-lines absolute inset-0"></div>
         <div class="relative flex flex-wrap items-center justify-between gap-6">
             <div>
                 <p class="text-sm font-semibold text-brand-100">Selamat datang kembali,</p>

@@ -43,8 +43,7 @@
     <div x-show="sidebar" x-cloak x-transition.opacity class="fixed inset-0 z-40 bg-ink/50 backdrop-blur-sm lg:hidden" @click="sidebar = false"></div>
     <aside :class="sidebar ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'"
            class="fixed inset-y-0 left-0 z-50 flex w-72 flex-col overflow-hidden bg-ink text-white transition-transform duration-300">
-        <div class="bg-grid pointer-events-none absolute inset-0 opacity-50"></div>
-        <div class="pointer-events-none absolute -left-20 -top-20 size-64 rounded-full bg-brand-600/30 blur-3xl"></div>
+        <div class="bg-lines pointer-events-none absolute inset-0"></div>
         <div class="relative flex items-center gap-3 px-6 py-6">
             <x-logo class="size-10" />
             <div>
